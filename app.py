@@ -5,11 +5,16 @@ import plotly.graph_objects as go
 from figures_utils import (
     get_figure,
 )
+from utils import (
+    get_employees_data,
+    get_svi_data
+)
 
 
 app = Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.DARKLY])
 
 bgcolor = "#f3f3f1"  # mapbox light map land color
+# colors = {"background": "#1F2630", "text": "#7FDBFF"}
 
 header = html.Div("Arapahoe Situational Awareness", className="h2 p-2 text-white bg-primary text-center")
 
@@ -17,7 +22,12 @@ template = {"layout": {"paper_bgcolor": bgcolor, "plot_bgcolor": bgcolor}}
 
 Arap_outline = gpd.read_file("/Users/jamesswank/Python_Projects/Arap_SVI_Dash/us-county-boundaries")
 
+counties = [
+    "Arapahoe"
+]
 
+employees = get_employees_data()
+svi_data = get_svi_data()
 
 
 def blank_fig(height):
@@ -54,36 +64,19 @@ app.layout = dbc.Container([
 
 @app.callback(
     Output('ct-map', 'figure'),
-    Input('variable-dropdown', 'value'),
+    Input('graph-type', 'value'),
 )
-def get_figure(dropdown):
-  
+def update_Chropleth(gtype):
    
+   if gtype in ['Pop', 'Density']:
+       df = svi_data
+       print(df)
+    
 
-    fig = go.Figure(go.Scattermapbox(
-            mode = "markers",
-            lon = [-73.605], lat = [45.51],
-            # showlegend=True
-            ))
   
+   return(print('sup'))
 
-    layer = [
-        {
-            "source": Arap_outline["geometry"].__geo_interface__,
-            "type": "line",
-            "color": "black"
-        }
-    ]
-
-    fig.update_layout(mapbox_style="carto-positron", 
-                      mapbox_zoom=10.4,
-                      mapbox_layers=layer,
-                      mapbox_center={"lat": 39.65, "lon": -104.8},
-                      margin={"r":0,"t":0,"l":0,"b":0},
-                      uirevision='constant')
-
-
-    return fig
+   
 
 
 if __name__ == "__main__":
