@@ -46,27 +46,11 @@ app.layout = dbc.Container([
 
 @app.callback(
     Output('ct-map', 'figure'),
-    # Input('year-map-data', 'data'),
     Input('variable-dropdown', 'value'),
-    # Input('year', 'value'),
-    # Input('opacity', 'value')
 )
 def get_figure(dropdown):
   
-    # df = pd.read_json(selected_data)
-    # # df['FIPS'] = df["FIPS"].astype(str)
-    # # df = df_SVI_2016
-    # df['FIPS'] = df["FIPS"].astype(str)
-    
-    # selection = dropdown
-    
-    # if year == 2016:
-    #     tgdf = gdf_2016.merge(df, on='FIPS')
-    # elif year == 2018:
-    #     tgdf = gdf_2018.merge(df, on='FIPS')
-    # else:
-    #     tgdf = gdf_2020.merge(df, on='FIPS')
-    # tgdf = tgdf.set_index('FIPS')
+   
 
     fig = go.Figure(go.Scattermapbox(
             mode = "markers",
@@ -74,13 +58,6 @@ def get_figure(dropdown):
             # showlegend=True
             ))
   
-
-    # fig = px.choropleth_mapbox(tgdf, 
-    #                             geojson=tgdf.geometry, 
-    #                             color=selection,                               
-    #                             locations=tgdf.index, 
-    #                             # featureidkey="properties.TRACTCE20",
-    #                             opacity=opacity)
 
     layer = [
         {
