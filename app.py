@@ -2,7 +2,9 @@ from dash import Dash, html, dcc, Input, Output, State
 import dash_bootstrap_components as dbc
 import geopandas as gpd
 import plotly.graph_objects as go
-
+from figures_utils import (
+    get_figure,
+)
 
 
 app = Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.DARKLY])
@@ -37,8 +39,14 @@ app.layout = dbc.Container([
     dbc.Row(dcc.Graph(id='ct-map', figure=blank_fig(500))),
     dbc.Row([
         dbc.Col([
-            dcc.Dropdown(
-                id='variable-dropdown',
+            dcc.RadioItems(
+                id='graph-type',
+                options=[
+                    {"label": i, "value": i}
+                    for i in ["Pop", "Density"]
+                ],
+                value="Pop",
+                inline=True
             ),
         ], width=2)
     ])
