@@ -2,6 +2,10 @@ from dash import Dash, html, dcc, Input, Output, State
 import dash_bootstrap_components as dbc
 import geopandas as gpd
 import plotly.graph_objects as go
+
+
+
+
 from figures_utils import (
     get_figure,
 )
@@ -67,14 +71,26 @@ app.layout = dbc.Container([
     Input('graph-type', 'value'),
 )
 def update_Chropleth(gtype):
+    print(gtype)
+    # if gtype in ['Pop', 'Density']:
+    df = svi_data
+    df['FIPS'] = df['FIPS'].astype(str)
+    # print(df)
+    # gtype = "Pop"
+    # county = "Arapahoe"
+
+    
+
+
+    # changed_id = [p["prop_id"] for p in dash.callback_context.triggered][0]
    
-   if gtype in ['Pop', 'Density']:
-       df = svi_data
-       print(df)
+    # selected_tracts = dict()
+   
+    fig = get_figure(df)
     
 
   
-   return(print('sup'))
+    return fig
 
    
 
